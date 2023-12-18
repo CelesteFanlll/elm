@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    username: root
+    password: wangzhiquan1217
+    url: jdbc:mysql:///business
+  data:
+    redis:
+      port: 6379
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: delete
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      id-type: auto
+
+server:
+  port: 9091
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
