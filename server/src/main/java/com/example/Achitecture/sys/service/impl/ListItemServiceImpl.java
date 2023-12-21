@@ -1,7 +1,8 @@
 package com.example.Achitecture.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.example.Achitecture.common.DTO.Result;
+import com.example.Achitecture.common.Factory.ListItemFactory;
+import com.example.Achitecture.common.BaseAbstractClass.AbstractFactory;
 import com.example.Achitecture.common.DTO.TClassDTO;
 import com.example.Achitecture.sys.entity.COrder;
 import com.example.Achitecture.sys.entity.Item;
@@ -39,6 +40,9 @@ public class ListItemServiceImpl extends ServiceImpl<ListItemMapper, ListItem> i
     @Autowired
     ShopMapper shopMapper;
 
+    AbstractFactory<ListItem> listItemAbstractFactory = new ListItemFactory();
+    ListItem listItem = listItemAbstractFactory.createEntity();
+
 
     @Override
     public List<TClassDTO> getOrderDetail(String keyword) {
@@ -68,11 +72,11 @@ public class ListItemServiceImpl extends ServiceImpl<ListItemMapper, ListItem> i
 
     @Override
     public void createListitem(List<ListItem> list) {
-
         for (ListItem item : list) {
             // 这里是模拟的代码，具体的insert方法你需要根据实际的mapper或数据库操作来写
             listItemMapper.insert(item);
         }
-
     }
+
+
 }

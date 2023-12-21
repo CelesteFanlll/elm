@@ -11,7 +11,7 @@ public class JwtUtil {
 //    一天的毫秒数
     private static long time = 1000*60*60*24;
     private static String signatureKey; // 用于签名的密钥
-    private static String name;
+
 
     // 初始化签名密钥的方法
     public static void initializeSignatureKey(String secretKey) {
@@ -19,9 +19,7 @@ public class JwtUtil {
     }
 
 //    初始化用户名
-    public static void initializeName(String input) {
-        name = input; // 假设您有一个获取密钥的方法
-    }
+
 
     public static String createToken(){
 
@@ -31,7 +29,6 @@ public class JwtUtil {
                 .setHeaderParam("typ","JWT")
                 .setHeaderParam("alg","HS256")
 //                载荷
-                .claim("name",name)
                 .setExpiration(new Date(System.currentTimeMillis()+time))
                 .setId(UUID.randomUUID().toString())
 //                签名

@@ -1,6 +1,8 @@
 package com.example.Achitecture.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.example.Achitecture.common.Factory.ShopFactory;
+import com.example.Achitecture.common.BaseAbstractClass.AbstractFactory;
 import com.example.Achitecture.sys.entity.Business;
 import com.example.Achitecture.sys.entity.Shop;
 import com.example.Achitecture.sys.mapper.BusinessMapper;
@@ -22,12 +24,13 @@ import java.util.List;
  */
 @Service
 public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IShopService {
-
-
     @Autowired
     ShopMapper shopMapper;
     @Autowired
     BusinessMapper businessMapper;
+
+    AbstractFactory<Shop> shopAbstractFactory = new ShopFactory();
+    Shop shop = shopAbstractFactory.createEntity();
     @Override
     public List<Shop> search(String keyword) {
         return shopMapper.search(keyword);

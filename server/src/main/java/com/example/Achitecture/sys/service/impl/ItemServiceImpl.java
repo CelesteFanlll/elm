@@ -1,6 +1,8 @@
 package com.example.Achitecture.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.example.Achitecture.common.Factory.ItemFactory;
+import com.example.Achitecture.common.BaseAbstractClass.AbstractFactory;
 import com.example.Achitecture.sys.entity.Item;
 import com.example.Achitecture.sys.mapper.ItemMapper;
 import com.example.Achitecture.sys.service.IItemService;
@@ -23,6 +25,9 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
 
     @Autowired
     ItemMapper itemMapper;
+
+    AbstractFactory<Item> itemFactory = new ItemFactory();
+    Item item = itemFactory.createEntity();
 
     @Override
     public List<Item> getItem(int id) {

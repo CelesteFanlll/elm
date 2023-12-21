@@ -4,7 +4,5 @@ public interface AbstractFactory<T> {
 
      T createEntity();
 
-     T createService();
-
 
 }

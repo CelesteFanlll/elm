@@ -11,6 +11,7 @@ import com.example.Achitecture.sys.service.impl.OrderServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,36 +28,36 @@ import java.util.List;
 @RequestMapping("/sys/order")
 @Api(tags = "订单控制器")
 public class OrderController extends BaseController<OrderServiceImpl, OrderMapper, COrder,Long> {
-
+//    基础功能
     public OrderController(OrderServiceImpl ls) {
         super(ls);
     }
-
     @Autowired
     IOrderService orderService;
 
-
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @ApiOperation("通过顾客姓名查询该顾客的订单")
     @PostMapping("/search")
     public Result<?> searchOrder(@RequestBody Customer customer){
         List<TClassDTO> data = orderService.searchOrder(customer);
         return Result.success(data);
-
     }
 
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @ApiOperation("模拟支付")
     @PostMapping("/pay")
     public int pay(@RequestBody COrder cOrder){
         return orderService.pay(cOrder);
     }
 
-
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @ApiOperation("模拟退款")
     @PostMapping("/refund")
     public int refund(@RequestBody COrder cOrder){
         return orderService.refund(cOrder);
     }
 
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @ApiOperation("生成订单并返回订单号")
     @PostMapping("/getid")
     public int getid(@RequestBody COrder cOrder){

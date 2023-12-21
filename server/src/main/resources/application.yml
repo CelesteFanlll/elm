@@ -1,4 +1,8 @@
 spring:
+  security:
+    user:
+      name: bjsxt
+      password: bjsxt
   datasource:
     username: root
     password: wangzhiquan1217

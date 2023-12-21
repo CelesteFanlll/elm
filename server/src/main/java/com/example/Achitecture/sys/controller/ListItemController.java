@@ -10,6 +10,7 @@ import com.example.Achitecture.sys.service.impl.ListItemServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 
@@ -35,6 +36,7 @@ public class ListItemController extends BaseController<ListItemServiceImpl, List
     @Autowired
     IListItemService listItemService;
 
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @ApiOperation("通过订单号查询详情")
     @GetMapping("/getOrderDetail")
     public List<TClassDTO> getOrderDetail(@RequestParam String keyword){
@@ -43,6 +45,8 @@ public class ListItemController extends BaseController<ListItemServiceImpl, List
 
     }
 
+
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @ApiOperation("根据前端传来的数组创建Listitem")
     @PostMapping("/createListitem")
     public Result<?> createListitem(@RequestBody List<ListItem> list){

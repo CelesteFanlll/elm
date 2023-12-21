@@ -1,6 +1,8 @@
 package com.example.Achitecture.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.example.Achitecture.common.Factory.OrderFactory;
+import com.example.Achitecture.common.BaseAbstractClass.AbstractFactory;
 import com.example.Achitecture.common.DTO.TClassDTO;
 import com.example.Achitecture.sys.entity.Customer;
 import com.example.Achitecture.sys.entity.COrder;
@@ -25,14 +27,13 @@ import java.util.List;
  */
 @Service
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, COrder> implements IOrderService {
-
     @Autowired
     OrderMapper orderMapper;
-
     @Autowired
     ShopMapper shopMapper;
 
-
+    AbstractFactory<COrder> orderAbstractFactory = new OrderFactory();
+    COrder cOrderNew = orderAbstractFactory.createEntity();
 
     @Override
     public List<TClassDTO> searchOrder(Customer customer) {
@@ -54,7 +55,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, COrder> implement
 
     @Override
     public int pay(COrder cOrder) {
-        COrder cOrderNew = new COrder();
+
         cOrderNew.setOrderId(cOrder.getOrderId());
         cOrderNew.setOrderStatus(1);
         return orderMapper.updateById(cOrderNew);
@@ -62,7 +63,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, COrder> implement
 
     @Override
     public int refund(COrder cOrder) {
-        COrder cOrderNew = new COrder();
         cOrderNew.setOrderId(cOrder.getOrderId());
         cOrderNew.setOrderStatus(2);
         return orderMapper.updateById(cOrderNew);
@@ -70,9 +70,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, COrder> implement
 
     @Override
     public int getid(COrder cOrder) {
-
         orderMapper.insert(cOrder);
-
         return cOrder.getOrderId();
     }
 

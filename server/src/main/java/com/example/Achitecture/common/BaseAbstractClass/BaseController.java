@@ -12,7 +12,7 @@ import java.util.List;
 
 @Api(tags ="基础Controller")
 @CrossOrigin
-public abstract class BaseController<S extends ServiceImpl<D,T>, D extends BaseMapper<T>,T extends Serializable, ID extends Serializable>{
+public abstract class BaseController <S extends ServiceImpl<D,T>, D extends BaseMapper<T>,T extends Serializable, ID extends Serializable>{
 
     protected S service;
     protected S getService(){
